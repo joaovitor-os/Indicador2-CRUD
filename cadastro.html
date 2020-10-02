@@ -1,0 +1,148 @@
+<!doctype html>
+<html >
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>Cadastro</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">CRUD</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="index.html">Inicial</a>
+            <a class="nav-link active" href="cadastro.html">Cadastro<span class="sr-only">(atual)</span></a>
+          </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="mx-auto" style="width:max-content">Cadastro de Tênis</h1>
+        <form>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome">
+            </div>
+            <div class="form-group">
+                <label for="tamanho">Tamanho:</label>
+                <input type="number" class="form-control" id="tamanho">
+            </div>
+            
+            <div class="form-group">
+                <label for="cor">Cor:</label>
+                <select class="form-control" id="cor">
+                    <option>Preto</option>
+                    <option selected>Branco</option>
+                    <option>Vermelho</option>
+                </select>
+            </div>
+
+            <input type="button" onclick="CriarTenis()" id="btnCriar" class="btn btn-success btn-block" value="Criar">
+            <input type="button" style="display: none;" id="btnEditar" onclick="EditarTenis()" class="btn btn-warning btn-block" value="Editar">
+        </form>
+
+        <table class="table mt-4" id="tabelaTenis">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nome</th>
+                    <th>Tamanho</th>
+                    <th>Cor</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+
+
+    </div> 
+
+    <script>
+        function CriarTenis(){
+            let nome = document.getElementById("nome").value;
+            let tamanho = document.getElementById("tamanho").value;
+            let cor = document.getElementById("cor").value;
+
+            let tblTenis = document.getElementById("tabelaTenis");
+
+            let linha = tblTenis.insertRow();
+
+            let cel1 = linha.insertCell(0);
+            let cel2 = linha.insertCell(1);
+            let cel3 = linha.insertCell(2);
+            let cel4 = linha.insertCell(3);
+            let cel5 = linha.insertCell(4);
+
+            cel1.innerHTML = nome;
+            cel2.innerHTML = tamanho;
+            cel3.innerHTML = cor;
+            cel4.innerHTML = "<input type='button' class='btn btn-warning' value='Editar' onclick='EditarCel(this)'>"
+            cel5.innerHTML = "<input type='button' class='btn btn-danger' value='Excluir' onclick='ExcluirCel(this)'>"
+
+            console.log(nome);
+            console.log(tamanho);
+            console.log(cor);
+        }
+
+        function ExcluirCel(obj){
+            let confirmarExclusao = confirm("Deseja realmente excluir?");
+
+            if(confirmarExclusao && obj.parentNode != undefined && obj.parentNode.parentNode != undefined){
+                obj.parentNode.parentNode.remove()
+            }
+        }
+
+        var arrayCels = "";
+        function EditarCel(obj){
+            arrayCels = obj.parentNode.parentNode.childNodes;
+
+            let nome = arrayCels[0].innerText;
+            let tamanho = arrayCels[1].innerText;
+            let cor = arrayCels[2].innerText;
+
+            document.getElementById("nome").value = nome;
+            document.getElementById("tamanho").value = tamanho;
+            document.getElementById("cor").value = cor;
+
+            document.getElementById("btnCriar").style.display = "none";
+            document.getElementById("btnEditar").style.display = "block";
+        }
+
+        function EditarTenis(){
+            let nome = document.getElementById("nome").value;
+            let tamanho = document.getElementById("tamanho").value;
+            let cor = document.getElementById("cor").value;
+
+            arrayCels[0].innerText = nome;
+            arrayCels[1].innerText = tamanho;
+            arrayCels[2].innerText = cor;
+
+            document.getElementById("btnCriar").style.display = "block";
+            document.getElementById("btnEditar").style.display = "none";
+        }
+
+    </script>
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>
